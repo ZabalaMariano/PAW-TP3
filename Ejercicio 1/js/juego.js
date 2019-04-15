@@ -45,7 +45,7 @@ Juego.generarJuego = function(modo){
     }
   }
 
-  cuadrados = Array.prototype.slice.call(document.querySelectorAll("div.cuadrado"));
+  cuadrados = document.querySelectorAll("div.cuadrado");
 
   for(var k = 0; k < Juego.nivelActual.minas; k++){
 
