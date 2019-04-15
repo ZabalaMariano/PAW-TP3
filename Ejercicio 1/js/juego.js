@@ -24,7 +24,7 @@ Juego.armarJuego = function (contenedor) {
 Juego.generarJuego = function(modo){
   var nivel = Juego.niveles.filter(n => n.modo === modo),
       section = document.querySelector(".juego-buscaminas"),
-      div;
+      div, cuadrados, asignado, img;
   Juego.nivelActual = nivel[0];
 
   for(var i = 0; i < Juego.nivelActual.ancho; i++){
@@ -32,12 +32,34 @@ Juego.generarJuego = function(modo){
       div = document.createElement("div");
       div.setAttribute("data-x",i);
       div.setAttribute("data-y",j);
-
       div.addEventListener("click", Juego.buscarMina);
       div.classList.add("cuadrado");
+      div.classList.add("sin-descubrir");
+
+      img = document.createElement("img");
+      img.setAttribute("src","images/blanco.svg");
+
+      div.appendChild(img);
+
       section.appendChild(div);
     }
   }
+
+  cuadrados = Array.prototype.slice.call(document.querySelectorAll("div.cuadrado"));
+
+  for(var k = 0; k < Juego.nivelActual.minas; k++){
+
+    asignado = false;
+    while(!asignado){
+      let random = parseInt(Math.random() * cuadrados.length);
+      console.log(cuadrados[random]);
+      if(cuadrados[random].firstChild.getAttribute("src") === "images/blanco.svg" ){
+        cuadrados[random].firstChild.setAttribute("src","images/bomb.svg");
+        asignado = true;
+      }
+    }
+  }
+
   document.getElementById("buscaminas-lista-opciones").classList.add("disabled");
 }
 

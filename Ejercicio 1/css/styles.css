@@ -31,3 +31,14 @@
 .juego-buscaminas .lista-opciones .opcion:hover {
   background-color: #F9DB81;
 }
+
+div.cuadrado.sin-descubrir img {
+  display: none;
+  width: inherit;
+  height: inherit;
+}
+div.cuadrado img {
+  display: inline-block;
+  width: inherit;
+  height: inherit;
+}
