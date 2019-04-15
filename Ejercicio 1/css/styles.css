@@ -1,0 +1,21 @@
+@import url(reset.css);
+
+.juego-buscaminas {
+  width: 100%;
+  height: 100%;
+}
+
+.juego-buscaminas .lista-opciones {
+  width: 20vw;
+  height: 20vh;
+}
+.juego-buscaminas .lista-opciones .opcion {
+  width: 20vw;
+  height: 20%;
+  border-radius: 5px;
+  border:  solid 1px;
+  background-color: #ABF981;
+}
+.juego-buscaminas .lista-opciones .opcion:hover {
+  background-color: #F9DB81;
+}
