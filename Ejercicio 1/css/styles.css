@@ -26,7 +26,7 @@
   display: inline-block;
   border: solid 1px;
   height: 10vh;
-  width: 10vw;
+  width: 12vw;
 }
 .juego-buscaminas .lista-opciones .opcion:hover {
   background-color: #F9DB81;
@@ -41,4 +41,9 @@ div.cuadrado img {
   display: inline-block;
   width: inherit;
   height: inherit;
+}
+
+div.cuadrado.descubierto{
+  background-color:  red;
+  border: solid 1px;
 }
