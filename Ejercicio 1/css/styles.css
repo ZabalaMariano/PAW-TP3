@@ -21,6 +21,13 @@
   text-align: center;
   vertical-align: middle;
 }
+
+.juego-buscaminas .cuadrado {
+  display: inline-block;
+  border: solid 1px;
+  height: 10vh;
+  width: 10vw;
+}
 .juego-buscaminas .lista-opciones .opcion:hover {
   background-color: #F9DB81;
 }

@@ -2,7 +2,7 @@ var window = window || {},
   document = document || {},
   console = console || {};
 
-  console.log(Juego);
+Juego.nivelActual = {};
 
 
 
@@ -22,11 +22,22 @@ Juego.armarJuego = function (contenedor) {
 
 
 Juego.generarJuego = function(modo){
-  var nivel = Juego.niveles.filter(n => n.modo === modo);
+  var nivel = Juego.niveles.filter(n => n.modo === modo),
+      section = document.querySelector(".juego-buscaminas"),
+      div;
+  Juego.nivelActual = nivel[0];
 
-  
+  for(var i = 0; i < Juego.nivelActual.ancho; i++){
+    for(var j = 0; j < Juego.nivelActual.alto; j++){
+      div = document.createElement("div");
+      div.setAttribute("data-x",i);
+      div.setAttribute("data-y",j);
 
-
+      div.addEventListener("click", Juego.buscarMina);
+      div.classList.add("cuadrado");
+      section.appendChild(div);
+    }
+  }
   document.getElementById("buscaminas-lista-opciones").classList.add("disabled");
 }
 
@@ -34,6 +45,12 @@ Juego.cargarOpciones = function(modo){
 
 
   Juego.generarJuego(modo);
+}
+
+Juego.buscarMina = function(e){
+
+  console.log(e);
+
 }
 
 Juego.seleccion = function(e){
