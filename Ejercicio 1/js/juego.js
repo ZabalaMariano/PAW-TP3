@@ -21,10 +21,28 @@ Juego.armarJuego = function (contenedor) {
 }
 
 
-Juego.iniciar = function(e){
+Juego.generarJuego = function(modo){
+  var nivel = Juego.niveles.filter(n => n.modo === modo);
+
+  
+
+
+  document.getElementById("buscaminas-lista-opciones").classList.add("disabled");
+}
+
+Juego.cargarOpciones = function(modo){
+
+
+  Juego.generarJuego(modo);
+}
+
+Juego.seleccion = function(e){
   if(e.target && e.target.matches("li.opcion")){
-    console.log(e.target.innerHTML);
-    alert("prueba");
+
+    if(e.target.innerHTML != "Personalizado")
+      Juego.generarJuego(e.target.innerHTML);
+    else
+      Juego.cargarOpciones(e.target.innerHTML);
   }
 }
 
@@ -33,7 +51,8 @@ Juego.generarMenuSeleccion = function(section){
   var ul = document.createElement("ul");
 
   ul.classList.add("lista-opciones");
-  ul.addEventListener("click",Juego.iniciar);
+  ul.id = "buscaminas-lista-opciones";
+  ul.addEventListener("click",Juego.seleccion);
 
   Juego.niveles.forEach(n => {
     let opcion = document.createElement("li");
