@@ -40,6 +40,7 @@ Juego.generarJuego = function(modo){
       img.setAttribute("src","images/blanco.svg");
 
       div.appendChild(img);
+      div.setAttribute("value","blank");
 
       section.appendChild(div);
     }
@@ -52,9 +53,9 @@ Juego.generarJuego = function(modo){
     asignado = false;
     while(!asignado){
       let random = parseInt(Math.random() * cuadrados.length);
-      console.log(cuadrados[random]);
       if(cuadrados[random].firstChild.getAttribute("src") === "images/blanco.svg" ){
         cuadrados[random].firstChild.setAttribute("src","images/bomb.svg");
+        cuadrados[random].setAttribute("value","bomb");
         asignado = true;
       }
     }
@@ -65,14 +66,71 @@ Juego.generarJuego = function(modo){
 
 Juego.cargarOpciones = function(modo){
 
-
   Juego.generarJuego(modo);
 }
 
 Juego.buscarMina = function(e){
+  var target = e.target.localName == "img" ? e.target.parentNode: e.target ;
 
-  console.log(e);
+  if(target.getAttribute("value") === "bomb"){
+      target.classList.remove("sin-descubrir");
+      alert("perdiste");
 
+  }
+  else
+  {
+      var x = target.getAttribute("data-x"),
+          y = target.getAttribute("data-y"),
+          cuadrados = Array.prototype.slice.call(document.querySelectorAll("div.cuadrado"));
+      console.log(x + " " + y);
+      console.log(minar(x,y,cuadrados));
+  }
+
+}
+
+
+
+function minar(x,y,array){
+
+  if( x < 0 || x > Juego.nivelActual.ancho  ||
+      y < 0 || y > Juego.nivelActual.alto ){
+
+        return 0;
+
+  }else{
+
+        var count = 0,
+          actual = array.filter( c => c.getAttribute("data-x") == x && c.getAttribute("data-y") == y)[0];
+
+        console.log(actual);
+        console.log(x);
+        console.log(y);
+
+
+        console.log(actual.getAttribute("value") == "bomb");
+        if(actual.getAttribute("value") == "bomb"){
+          return 1;
+        }else{
+          let minas = minar(x  , y-1, array) +
+                        minar(x-1, y-1, array) +
+                        minar(x+1, y-1, array) +
+                        minar(x-1, y  , array) +
+                        minar(x+1, y  , array) +
+                        minar(x  , y+1, array) +
+                        minar(x-1, y+1, array) +
+                        minar(x+1, y+1, array);
+
+          console.log("minar " + minas);
+        }
+
+  }
+
+}
+function factorial( n ) {
+  if ( n === 1 ) {
+    return 1;
+  }
+  return n * factorial( n - 1 );
 }
 
 Juego.seleccion = function(e){
