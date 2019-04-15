@@ -79,8 +79,8 @@ Juego.buscarMina = function(e){
   }
   else
   {
-      var x = target.getAttribute("data-x"),
-          y = target.getAttribute("data-y"),
+      var x = parseInt(target.getAttribute("data-x")),
+          y = parseInt(target.getAttribute("data-y")),
           cuadrados = Array.prototype.slice.call(document.querySelectorAll("div.cuadrado"));
       console.log(x + " " + y);
       console.log(minar(x,y,cuadrados));
@@ -88,43 +88,55 @@ Juego.buscarMina = function(e){
 
 }
 
-
-
 function minar(x,y,array){
 
-  if( x < 0 || x > Juego.nivelActual.ancho  ||
-      y < 0 || y > Juego.nivelActual.alto ){
+  if(!(x < 0 || x >= Juego.nivelActual.ancho ||
+      y < 0 || y >= Juego.nivelActual.alto))
+{
 
-        return 0;
-
-  }else{
-
-        var count = 0,
-          actual = array.filter( c => c.getAttribute("data-x") == x && c.getAttribute("data-y") == y)[0];
-
-        console.log(actual);
-        console.log(x);
-        console.log(y);
-
-
-        console.log(actual.getAttribute("value") == "bomb");
-        if(actual.getAttribute("value") == "bomb"){
-          return 1;
-        }else{
-          let minas = minar(x  , y-1, array) +
-                        minar(x-1, y-1, array) +
-                        minar(x+1, y-1, array) +
-                        minar(x-1, y  , array) +
-                        minar(x+1, y  , array) +
-                        minar(x  , y+1, array) +
-                        minar(x-1, y+1, array) +
-                        minar(x+1, y+1, array);
-
-          console.log("minar " + minas);
-        }
+      var  actual = array.filter( c => c.getAttribute("data-x") == x && c.getAttribute("data-y") == y)[0];
+      let minas = minasAledañas(x+1, y+1, array)+
+                  minasAledañas(x-1, y+1, array)+
+                  minasAledañas(x  , y+1, array)+
+                  minasAledañas(x+1, y-1, array)+
+                  minasAledañas(x-1, y-1, array)+
+                  minasAledañas(x  , y-1, array)+
+                  minasAledañas(x+1, y, array)+
+                  minasAledañas(x-1, y, array);
+      if(minas != 0){
+        actual.firstChild.setAttribute("src","images/"+minas+".svg");
+      }
+      // console.log("minar " + minas);
+      // minar(x  , y-1, array);
+      // minar(x-1, y-1, array);
+      // minar(x+1, y-1, array);
+      // minar(x-1, y  , array);
+      // minar(x+1, y  , array);
+      // minar(x  , y+1, array);
+      // minar(x-1, y+1, array);
+      // minar(x+1, y+1, array);
 
   }
 
+}
+
+
+function minasAledañas(x,y,array){
+  console.log(x + "  "+ y);
+    if( x < 0 || x >= Juego.nivelActual.ancho  ||
+        y < 0 || y >= Juego.nivelActual.alto ){
+
+          return 0;
+        }
+        else{
+            var  actual = array.filter( c => c.getAttribute("data-x") == x && c.getAttribute("data-y") == y)[0];
+
+            if(actual.getAttribute("value") == "bomb"){
+              return 1;
+            }else{
+              return 0;
+          }
+  }
 }
 function factorial( n ) {
   if ( n === 1 ) {
