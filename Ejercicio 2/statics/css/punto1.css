@@ -1,0 +1,33 @@
+  label { 
+    clear: both;
+    float:left;
+    margin-top: 15px;
+    margin-right: 10px;
+  }
+
+  small {
+    clear: both;
+    float:left;
+    margin-top: 5px;
+    margin-right: 10px;
+  }
+  
+  input, select, .cm {
+    margin-top: 15px;
+    float:left;
+  }
+  
+  .boton {
+    clear: both;
+    margin-right: 10px;
+  }
+
+  p {
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  .seccionPrincipal {
+    padding-left: 3vw;
+   }
+  
