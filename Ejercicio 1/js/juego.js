@@ -35,10 +35,8 @@ Juego.generarJuego = function(modo){
       div.addEventListener("click", Juego.buscarMina);
       div.classList.add("cuadrado");
       div.classList.add("sin-descubrir");
-
       img = document.createElement("img");
       img.setAttribute("src","images/blanco.svg");
-
       div.appendChild(img);
       div.setAttribute("value","blank");
 
@@ -60,14 +58,22 @@ Juego.generarJuego = function(modo){
       }
     }
   }
-
+  for( i = 0; i < Juego.nivelActual.ancho; i++){
+    for( j = 0; j < Juego.nivelActual.alto; j++){
+      cargarLimites(i, j, Array.prototype.slice.call(cuadrados));
+    }
+  }
   document.getElementById("buscaminas-lista-opciones").classList.add("disabled");
 }
+
+
 
 Juego.cargarOpciones = function(modo){
 
   Juego.generarJuego(modo);
 }
+
+
 
 Juego.buscarMina = function(e){
   var target = e.target.localName == "img" ? e.target.parentNode: e.target ;
@@ -79,59 +85,102 @@ Juego.buscarMina = function(e){
   }
   else
   {
-      var x = target.getAttribute("data-x"),
-          y = target.getAttribute("data-y"),
+      var x = parseInt(target.getAttribute("data-x")),
+          y = parseInt(target.getAttribute("data-y")),
           cuadrados = Array.prototype.slice.call(document.querySelectorAll("div.cuadrado"));
-      console.log(x + " " + y);
-      console.log(minar(x,y,cuadrados));
+      descubrir(x, y, cuadrados);
+
+      if(juegoTerminado(cuadrados)){
+        alert("ganaste");
+      }
+
   }
 
 }
 
+function juegoTerminado(array){
+  const ar = array.filter( c => c.getAttribute("value") == "blank");
+  return ar.length == 0;
+}
+
+function descubrir(x,y,array){
+  console.log("descubrir "+ x +" "+ y  );
+  if(!(x < 0 || x >= Juego.nivelActual.ancho ||
+      y < 0 || y >= Juego.nivelActual.alto))
+  {
+    var  actual = array.filter( c => c.getAttribute("data-x") == x && c.getAttribute("data-y") == y)[0];
+    if(actual.getAttribute("value") == "blank"){
+
+      actual.setAttribute("value","descubierto");
+      actual.classList.remove("sin-descubrir");
+      actual.classList.add("descubierto");
 
 
-function minar(x,y,array){
+      descubrir(x+1, y+1, array);
+      descubrir(x-1, y+1, array);
+      descubrir(x ,  y+1, array);
+      descubrir(x+1, y-1, array);
+      descubrir(x-1, y-1, array);
+      descubrir(x , y-1, array);
+      descubrir(x+1, y, array);
+      descubrir(x-1, y, array);
 
-  if( x < 0 || x > Juego.nivelActual.ancho  ||
-      y < 0 || y > Juego.nivelActual.alto ){
+    }else if(actual.getAttribute("value") == "limite"){
+      console.log("asdasdas");
+      actual.classList.remove("sin-descubrir");
+      actual.classList.add("descubierto");
+    }
+  }
+}
 
-        return 0;
+function cargarLimites(x,y,array){
 
-  }else{
+  if(!(x < 0 || x >= Juego.nivelActual.ancho ||
+      y < 0 || y >= Juego.nivelActual.alto))
+  {
 
-        var count = 0,
-          actual = array.filter( c => c.getAttribute("data-x") == x && c.getAttribute("data-y") == y)[0];
-
-        console.log(actual);
-        console.log(x);
-        console.log(y);
-
-
-        console.log(actual.getAttribute("value") == "bomb");
-        if(actual.getAttribute("value") == "bomb"){
-          return 1;
-        }else{
-          let minas = minar(x  , y-1, array) +
-                        minar(x-1, y-1, array) +
-                        minar(x+1, y-1, array) +
-                        minar(x-1, y  , array) +
-                        minar(x+1, y  , array) +
-                        minar(x  , y+1, array) +
-                        minar(x-1, y+1, array) +
-                        minar(x+1, y+1, array);
-
-          console.log("minar " + minas);
+  var  actual = array.filter( c => c.getAttribute("data-x") == x && c.getAttribute("data-y") == y)[0];
+  if(actual.getAttribute("value") != "bomb"){
+        let minas = minasAledañas(x+1, y+1, array)+
+                    minasAledañas(x-1, y+1, array)+
+                    minasAledañas(x  , y+1, array)+
+                    minasAledañas(x+1, y-1, array)+
+                    minasAledañas(x-1, y-1, array)+
+                    minasAledañas(x  , y-1, array)+
+                    minasAledañas(x+1, y, array)+
+                    minasAledañas(x-1, y, array);
+        if(minas != 0){
+          actual.firstChild.setAttribute("src","images/"+minas+".svg");
+          actual.setAttribute("value","limite");
         }
 
+    }
   }
+}
 
-}
-function factorial( n ) {
-  if ( n === 1 ) {
-    return 1;
+
+
+
+function minasAledañas(x,y,array){
+  console.log(x + "  "+ y);
+    if( x < 0 || x >= Juego.nivelActual.ancho  ||
+        y < 0 || y >= Juego.nivelActual.alto ){
+
+          return 0;
+        }
+        else{
+            var  actual = array.filter( c => c.getAttribute("data-x") == x && c.getAttribute("data-y") == y)[0];
+
+            if(actual.getAttribute("value") == "bomb"){
+              return 1;
+            }else{
+              return 0;
+          }
   }
-  return n * factorial( n - 1 );
 }
+
+
+
 
 Juego.seleccion = function(e){
   if(e.target && e.target.matches("li.opcion")){
@@ -142,6 +191,9 @@ Juego.seleccion = function(e){
       Juego.cargarOpciones(e.target.innerHTML);
   }
 }
+
+
+
 
 Juego.generarMenuSeleccion = function(section){
 
@@ -165,74 +217,3 @@ Juego.generarMenuSeleccion = function(section){
 
   section.appendChild(ul);
 }
-
-// Juego.generarTarjetas = function (contenedor) {
-//   var ancho = Juego.niveles[Juego.nivelActual].ancho,
-//     alto = Juego.niveles[Juego.nivelActual].alto,
-//     tarjeta, imagen, imagen2, nombreImagen, bandera;
-//   for (var i = 0; i < ancho; i = i + 1) {
-//     for (var j = 0; j < alto; j++) {
-//       tarjeta = document.createElement("div");
-//       tarjeta.classList.add("tarjeta");
-//       tarjeta.classList.add("bocaAbajo");
-//       tarjeta.setAttribute("data-x", i);
-//       tarjeta.setAttribute("data-y", j);
-//       tarjeta.addEventListener("click", Juego.darVueltaTarjeta);
-//       contenedor.appendChild(tarjeta);
-//     }
-//   }
-//   var tarjetas = document.querySelectorAll(".tarjeta");
-//   console.log(tarjetas);
-//   for (i = 0; i < tarjetas.length / 2; i++) {
-//
-//     imagen = document.createElement("img");
-//     nombreImagen = Juego.imagenes[parseInt(Math.random() * Juego.imagenes.length)];
-//     imagen.setAttribute("src", "images/" + nombreImagen + ".svg");
-//     imagen2 = imagen.cloneNode();
-//     bandera = true;
-//     while (bandera) {
-//       var posicion = parseInt(Math.random() * tarjetas.length);
-//       if (!tarjetas[posicion].hasChildNodes()) {
-//         tarjetas[posicion].appendChild(imagen);
-//         bandera = false;
-//       }
-//     }
-//
-//     bandera = true;
-//     while (bandera) {
-//       posicion = parseInt(Math.random() * tarjetas.length);
-//       if (!tarjetas[posicion].hasChildNodes()) {
-//         tarjetas[posicion].appendChild(imagen2);
-//         bandera = false;
-//       }
-//     }
-//
-//   }
-// }
-//
-// Juego.darVueltaTarjeta = function (event) {
-//   var tarjeta = event.target,
-//     bocaArriba = document.querySelector(".bocaArriba:not(.marcada)");
-//   tarjeta.classList.remove("bocaAbajo");
-//   tarjeta.classList.add("bocaArriba");
-//   if (bocaArriba) {
-//     if (bocaArriba.getElementsByTagName("img")[0].getAttribute("src") === tarjeta.getElementsByTagName("img")[0].getAttribute("src")) {
-//       Juego.parEncontrado();
-//       tarjeta.classList.add("marcada");
-//       bocaArriba.classList.add("marcada");
-//       tarjeta.removeEventListener("click", Juego.darVueltaTarjeta);
-//       bocaArriba.removeEventListener("click", Juego.darVueltaTarjeta);
-//     } else {
-//       window.setTimeout(function () {
-//         tarjeta.classList.remove("bocaArriba");
-//         bocaArriba.classList.remove("bocaArriba");
-//         tarjeta.classList.add("bocaAbajo");
-//         bocaArriba.classList.add("bocaAbajo");
-//       }, 1000);
-//     }
-//   }
-// }
-//
-// Juego.parEncontrado = function () {
-//
-// };
