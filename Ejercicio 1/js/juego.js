@@ -24,14 +24,19 @@ Juego.armarJuego = function (contenedor) {
 Juego.generarJuego = function(modo){
   var nivel = Juego.niveles.filter(n => n.modo === modo),
       section = document.querySelector(".juego-buscaminas"),
-      div, cuadrados, asignado, img;
+      div, cuadrados, asignado, img, ul,li;
   Juego.nivelActual = nivel[0];
 
-  for(var i = 0; i < Juego.nivelActual.ancho; i++){
-    for(var j = 0; j < Juego.nivelActual.alto; j++){
+  ul = document.createElement("ul");
+  section.appendChild(ul);
+  for(var i = 0; i < Juego.nivelActual.alto; i++){
+
+    li = document.createElement("li");
+    li.classList.add("fila-buscaminas");
+    for(var j = 0; j < Juego.nivelActual.ancho; j++){
       div = document.createElement("div");
-      div.setAttribute("data-x",i);
-      div.setAttribute("data-y",j);
+      div.setAttribute("data-x",j);
+      div.setAttribute("data-y",i);
       div.addEventListener("click", Juego.buscarMina);
       div.classList.add("cuadrado");
       div.classList.add("sin-descubrir");
@@ -40,8 +45,9 @@ Juego.generarJuego = function(modo){
       div.appendChild(img);
       div.setAttribute("value","blank");
 
-      section.appendChild(div);
+      li.appendChild(div);
     }
+    ul.appendChild(li);
   }
 
   cuadrados = document.querySelectorAll("div.cuadrado");
@@ -99,7 +105,7 @@ Juego.buscarMina = function(e){
 }
 
 function juegoTerminado(array){
-  const ar = array.filter( c => c.getAttribute("value") == "blank");
+  const ar = array.filter( c => c.getAttribute("value") == "blank" || (c.classList.contains("sin-descubrir") && c.getAttribute("value") != "bomb"));
   return ar.length == 0;
 }
 

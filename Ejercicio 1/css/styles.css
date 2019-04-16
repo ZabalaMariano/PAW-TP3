@@ -15,22 +15,21 @@
 .juego-buscaminas .lista-opciones .opcion {
   width: 20vw;
   height: 20%;
-  border-radius: 5px;
-  border:  solid 1px;
   background-color: #ABF981;
   text-align: center;
   vertical-align: middle;
 }
-
-.juego-buscaminas .cuadrado {
-  display: inline-block;
-  border: solid 1px;
-  height: 10vh;
-  width: 12vw;
-}
 .juego-buscaminas .lista-opciones .opcion:hover {
   background-color: #F9DB81;
 }
+
+.juego-buscaminas .cuadrado {
+  display: inline-block;
+  border: solid 1px black;
+  height: 5vh;
+  width: 5vw;
+}
+
 
 div.cuadrado.sin-descubrir img {
   display: none;
@@ -38,12 +37,13 @@ div.cuadrado.sin-descubrir img {
   height: inherit;
 }
 div.cuadrado img {
-  display: inline-block;
   width: inherit;
   height: inherit;
 }
 
 div.cuadrado.descubierto{
   background-color:  red;
-  border: solid 1px;
+}
+.fila-buscaminas{
+  height: 5vh;
 }

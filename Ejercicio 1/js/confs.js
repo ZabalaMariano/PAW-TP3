@@ -4,12 +4,6 @@ var console = console || {},
 Juego.contenedor = "no";
 Juego.niveles = [
   {
-    modo: "Personalizado",
-    ancho: null,
-    alto: null,
-    minas: null
-  },
-  {
     modo: "Facil",
     ancho: 8,
     alto: 8,
