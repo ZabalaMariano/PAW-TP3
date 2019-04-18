@@ -1,1 +1,70 @@
 @import url(reset.css);
+
+.container-slider{
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+.slider-content{
+  display: inline-block;
+  position: relative;
+}
+
+.disabled-image{
+  display: none;
+}
+
+
+.next-img, .prev-img{
+  position: absolute;
+  width: 10%;
+  height: 100%;
+  top: 0;
+}
+
+.next-img:hover, .prev-img:hover{
+  background-color: #817977;
+  opacity:0.6;
+}
+.prev-img{
+  left: 0;
+}
+
+.next-img{
+  right: 0;
+}
+
+
+
+.image-thumbs{
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.image-thumbs input[type=radio]  + span{
+   width: 12px;
+   height: 12px;
+   display: inline-block;
+   border-radius: 50%;
+   background-color: #eee;
+   margin: 0 5px;
+   cursor: pointer;
+}
+
+.image-thumbs   input[type=radio]:checked + span{
+  background-color: #FE8002 ;
+}
+
+.image-thumbs   input[type=radio]{
+  display: none;
+}
+
+.responsive-image{
+  width: 100%;
+  height: auto;
+}
