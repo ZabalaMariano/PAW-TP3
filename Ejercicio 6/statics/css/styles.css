@@ -1,0 +1,140 @@
+@import url(reset.css);
+
+/*CONTENEDOR*/
+.contenedor {
+  width: 100%;
+  height: 100%;
+}
+
+.principal {
+  margin-top: 5px;
+  padding: 5px 0px;
+  background: #000011;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: auto 40% 10% 30% auto;
+  grid-template-areas: ". videoPrincipal . listaVideos ." ;
+}
+
+/*SECTION video principal*/
+.videoPrincipal {
+  grid-area: videoPrincipal;
+  display: grid;
+  grid-template-rows: 75% 5% 5% 5% 10%;
+  grid-template-columns: 50% auto;
+  grid-template-areas: "video video"
+                       "titulo ."
+                       "visualizaciones ."
+                       ". ."
+                       "autor .";
+}
+
+.videoPrincipal video {
+  grid-area: video;
+  max-height: 320px;
+}
+
+.videoPrincipal .titulo {
+  grid-area: titulo;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  color: #ffffff;
+  margin-top: 1em;
+  margin-left: 10px;
+}
+
+.videoPrincipal .reproducciones {
+  grid-area: visualizaciones;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  color: #ffffff;
+  margin-top: 1em;
+  margin-left: 10px;
+}
+
+.addressAutor {
+  grid-area: autor;
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-template-columns: 20% 80%;
+  grid-template-areas: "imagen nombreAutor"
+                       "imagen fchPublicacion";
+}
+
+.videoPrincipal .addressAutor .imgAutor {
+  grid-area: imagen;
+  width: 100%;
+  height: 100%;
+}
+
+.videoPrincipal .addressAutor .nombreAutor {
+  grid-area: nombreAutor;
+  padding-left:5px;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  color: #ffffff;
+}
+
+.videoPrincipal .addressAutor time {
+  grid-area: fchPublicacion;
+  padding-left:5px;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  color: #ffffff;
+}
+
+/*SECTION aside lista videos*/
+.listaReproduccion {/*aside*/
+  grid-area: listaVideos;
+}
+
+.listaReproduccion .lista .liVideoLista:nth-child(2n+1) {
+  background: #ffe6e6;
+}
+
+.listaReproduccion .lista .liVideoLista:nth-child(2n) {
+  background: #ffcccc;
+}
+
+.listaReproduccion .lista .liVideoLista {/*li*/
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: 20% 20% 60%;
+  grid-template-columns: 40% 60%;
+  grid-template-areas: "imagen tituloVideo"
+                       "imagen nombreAutor"
+                       "imagen .";
+}
+
+.listaReproduccion .lista .liVideoLista:hover {/*li*/
+  color: red;
+}
+
+.listaReproduccion .lista .liVideoLista .imgVideoLista {
+  grid-area: imagen;
+  margin: 1px 1px 1px 2px;
+}
+
+.listaReproduccion .lista .liVideoLista .imgVideoListaReproduciendose {
+  opacity: 0.6;
+}
+
+.listaReproduccion .lista .liVideoLista .tituloVideoLista {
+  grid-area: tituloVideo;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  margin-top: 1em;
+}
+
+.listaReproduccion .lista .liVideoLista .nombreAutorLista {
+  grid-area: nombreAutor;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  margin-top: 1em;
+}
