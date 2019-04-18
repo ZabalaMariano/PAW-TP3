@@ -5,7 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link href="<?= statics('reset.css') ?>" rel="stylesheet" type="text/css">
+  <link href="<?= statics('main.css') ?>" rel="stylesheet" type="text/css">
+  <link href="<?= statics('styles.css') ?>" rel="stylesheet" type="text/css">
   <script src="js/confs.js"></script>
   <script src="js/juego.js"></script>
   <script>
@@ -15,6 +17,9 @@
 </head>
 
 <body>
+  <?php 
+    require 'nav.view.php';
+  ?>
   <h1>Buscaminas</h1>
   <div id="contenedor"></div>
 </body>
