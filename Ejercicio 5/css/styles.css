@@ -26,6 +26,7 @@
 .next-img:hover, .prev-img:hover{
   background-color: #817977;
   opacity:0.6;
+  cursor: pointer;
 }
 .prev-img{
   left: 0;
@@ -35,9 +36,19 @@
   right: 0;
 }
 
+.responsive-image{
+  width: 100%;
+  height: auto;
+}
+
+.precarga{
+  width: 100%;
+  height: 100%;
+  background:transparent url("../images/ajax-loader.gif") center no-repeat;
+}
 
 
-.image-thumbs{
+.buttons{
   position: absolute;
   bottom: 5px;
   left: 0;
@@ -46,25 +57,18 @@
   margin-left: auto;
 }
 
-.image-thumbs input[type=radio]  + span{
-   width: 12px;
-   height: 12px;
-   display: inline-block;
-   border-radius: 50%;
-   background-color: #eee;
-   margin: 0 5px;
-   cursor: pointer;
+.button-container{
+  background-color: #FFCA80;
+  border-radius: 100%;
+  cursor: pointer;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
-.image-thumbs   input[type=radio]:checked + span{
-  background-color: #FE8002 ;
+.button-container:hover{
+  background-color: #FDA428;
 }
-
-.image-thumbs   input[type=radio]{
-  display: none;
-}
-
-.responsive-image{
-  width: 100%;
-  height: auto;
+.button-container input {
+  opacity: 0;
+  cursor: pointer;
 }

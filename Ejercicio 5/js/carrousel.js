@@ -4,6 +4,7 @@ var Carrousel = Carrousel || {},
     console = console || {};
 
 Carrousel.contenedor = "vacio";
+Carrousel.images = ["beach","glass","path","wall"];
 
 
 Carrousel.onLoadWindow = function (contenedor) {
@@ -21,11 +22,10 @@ Carrousel.onLoadWindow = function (contenedor) {
 
 
 Carrousel.generate = function(section){
-  var images = ["beach","glass","path","wall"],
-      ext = ".jpeg",
+  var ext = ".jpeg",
       dir = "images/",
 
-      img, divprimary, divcontent, input, label, divprev, divnext, divradios, span;
+      img, divprimary, divcontent, input, label, divprev, divnext, divradios;
   divprimary  = document.createElement("div");
   divcontent  = document.createElement("div");
   divprev     = document.createElement("div");
@@ -35,32 +35,41 @@ Carrousel.generate = function(section){
   divprimary.classList.add("container-slider");
   divcontent.classList.add("slider-content");
   divprev.classList.add("prev-img");
+
+  divprev.addEventListener("click",Carrousel.prev);
   divnext.classList.add("next-img");
-  divradios.classList.add("image-thumbs");
+
+  divnext.addEventListener("click",Carrousel.next);
+  divradios.classList.add("buttons");
 
   divprimary.appendChild(divcontent);
 
-  images.forEach(image => {
+  for(let i = 0; i< Carrousel.images.length; i++){
     img = document.createElement("img");
-    img.setAttribute("src", dir + image + ext);
+    img.setAttribute("src", dir + Carrousel.images[i] + ext);
     img.classList.add("disabled-image");
     img.classList.add("responsive-image");
+    img.setAttribute("img-number",i);
 
 
     divcontent.appendChild(img);
-  });
+  }
 
   divcontent.firstChild.classList.remove("disabled-image");
+  divcontent.firstChild.classList.add("current");
 
-  for(let i = 0 ; i < images.length; i++){
+  for(let i = 0 ; i < Carrousel.images.length; i++){
     label = document.createElement("label");
     input = document.createElement("input");
-    span  = document.createElement("span");
+
     input.setAttribute("type","radio");
-    input.setAttribute("image",i);
+    input.setAttribute("img-number",i);
+
+    input.addEventListener("click",Carrousel.buttonCheck);
+
+    label.classList.add("button-container");
 
     label.appendChild(input);
-    label.appendChild(span);
     divradios.appendChild(label);
   }
 
@@ -70,4 +79,59 @@ Carrousel.generate = function(section){
 
   section.appendChild(divprimary);
 
+}
+
+/*CUENTA ADELANTE CON EL MOD*/
+Carrousel.next = function(e){
+
+  let img = document.querySelector("div.slider-content img.current");
+  let images = Carrousel.images.length ;
+  let current = parseInt(img.getAttribute("img-number")) +1 ;
+  let nextImg = current % images;
+
+  let next = document.querySelector("div.slider-content img[img-number='"+nextImg+"']");
+
+  img.classList.remove("current");
+  img.classList.add("disabled-image");
+  next.classList.remove("disabled-image");
+  next.classList.add("current");
+}
+/*CUENTA ATRAS CON MOD*/
+Carrousel.prev = function(e){
+
+  let img = document.querySelector("div.slider-content img.current");
+  let images = Carrousel.images.length ;
+  let current = parseInt(img.getAttribute("img-number")) + images -1 ;
+  let prevImg = current % images;
+
+  let prev = document.querySelector("div.slider-content img[img-number='"+prevImg+"']");
+
+  img.classList.remove("current");
+  img.classList.add("disabled-image");
+  prev.classList.remove("disabled-image");
+  prev.classList.add("current");
+
+}
+
+Carrousel.buttonCheck = function(e){
+  let input = e.target;
+  if(input.getAttribute("checked") != true){
+    input.setAttribute("checked",true);
+    let img = input.getAttribute("img-number");
+    let imgC = document.querySelector("div.slider-content img.current");
+    let jump = document.querySelector("div.slider-content img[img-number='"+img+"']");
+    imgC.classList.remove("current");
+    imgC.classList.add("disabled-image");
+    jump.classList.remove("disabled-image");
+    jump.classList.add("current");
+    Carrousel.setUncheckedElse(img);
+  }
+}
+
+Carrousel.setUncheckedElse = function (current){
+
+  let inputs = Array.prototype.slice.call(document.querySelectorAll(".button-container input[type='radio']"));
+
+  console.log(inputs);
+  inputs.forEach( i => {if(i.getAttribute("img-number")!= current) i.setAttribute("checked",false);});
 }
