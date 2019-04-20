@@ -39,6 +39,7 @@ Reproductor.generarMenu = function(idVideo){
     pTitulo.classList.add("titulo");
     pTitulo.textContent = videoElegido.tituloVideo;//auto
     pReproducciones.classList.add("reproducciones");
+    videoElegido.reproduccionesVideo+=1;
     pReproducciones.textContent = videoElegido.reproduccionesVideo + " visualizaciones";//auto
     addressAutor.classList.add("addressAutor");
     imgAutor.classList.add("imgAutor");
