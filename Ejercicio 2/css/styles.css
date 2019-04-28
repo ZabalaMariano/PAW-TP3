@@ -1,0 +1,286 @@
+@import url(reset.css);
+
+/*ELECCION NOMBRE JUGADORES*/
+
+.tatetiInicio {
+  width: 100vw;
+  height: 50vh;
+}
+
+/*Defualt para telefonos*/
+.tatetiSectionJugadores {
+	width: 100vw;
+	height: 100vh;
+	margin: 2em auto 0em auto;
+}
+
+.tatetiSectionJugadores .tatetiForm {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: auto 45% 45% auto;
+  grid-template-areas: ". mensaje mensaje ."/*Primera Fila - los puntos porque en auto no va nada*/
+                        ". labelX inputX ."/*Segunda Fila*/
+                        ". labelO inputO ."/*Tercera Fila*/
+                        ". siguiente siguiente ."/*Cuarta Fila*/
+}
+
+@media (min-width:481px) {
+  /* Para desktop: */
+  .tatetiSectionJugadores {
+    width: 50vw;
+    height: 50vh;
+    margin: 2em auto 0em auto;
+  }
+  
+  .tatetiSectionJugadores .tatetiForm {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: auto 30% 30% auto;
+    grid-template-areas: ". mensaje mensaje ."/*Primera Fila - los puntos porque en auto no va nada*/
+                          ". labelX inputX ."/*Segunda Fila*/
+                          ". labelO inputO ."/*Tercera Fila*/
+                          ". siguiente siguiente ."/*Cuarta Fila*/
+  }
+}
+  
+.tatetiSectionJugadores .tatetiForm .tatetiMensajeInicio {
+  grid-area: mensaje;
+  color: red;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  margin: 1em;
+}
+
+.tatetiSectionJugadores .tatetiForm .tatetiFormLabel1 {
+  grid-area: labelX;
+  color: black;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  margin: 1em;
+}
+
+.tatetiSectionJugadores .tatetiForm .tatetiFormLabel2 {
+  grid-area: labelO;
+  color: black;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  margin: 1em;
+}
+
+.tatetiSectionJugadores .tatetiForm .tatetiFormInput1 {
+  grid-area: inputX;
+  color: black;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  margin: 1em;
+}
+
+.tatetiSectionJugadores .tatetiForm .tatetiFormInput2 {
+  grid-area: inputO;
+  color: black;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  margin: 1em;
+}
+
+.tatetiSectionJugadores .tatetiForm .tatetiFormBoton {
+  grid-area: siguiente;
+  padding: 1em;
+  background: black;
+  color: blanchedalmond;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  border: 3px solid #2c3e50;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.tatetiSectionJugadores .tatetiForm .tatetiFormBoton:hover {
+  color: gold;
+}
+
+/*JUEGO TATETI*/
+.tateti {
+	width: 100vw;
+	height: 100vh;
+  margin: 2em auto 2em auto;
+  
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: auto 90% auto;
+  grid-template-areas:  ". tabla ."
+                        ". . ."
+                        ". tateti ."
+                        ". tateti ."
+                        ". tateti . "
+                        ". . ."
+                        ". mensajeTurno ."
+                        ". mensajeGanador ."
+                        ". . ."
+                        ". restart .";
+}
+
+.tatetiSectionJuego {
+  grid-area: tateti;
+	width: 100%;
+	height: 100%;
+	
+  display: grid;
+  grid-template: repeat(1, 1fr) / repeat(1, 1fr);
+}
+
+@media (min-width:481px) {
+  .tateti {
+    width: 50vw;
+    height: 70vh;
+    margin: 2em auto 0em auto;
+    
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1.5fr 1fr;
+    grid-template-columns: auto 50% 5% 35% auto;
+    grid-template-areas:  ". tateti . tabla ."
+                          ". tateti . . ."
+                          ". tateti . mensajeTurno ."
+                          ". . . mensajeGanador ."
+                          ". . . . ."
+                          ". restart . . .";
+  }
+  
+  .tatetiSectionJuego {
+    grid-area: tateti;
+    width: 25vw;
+    height: 25vw;
+    margin: 1em auto;
+    
+    display: grid;
+    grid-template: repeat(1, 1fr) / repeat(1, 1fr);
+  }
+}
+
+.tatetiSectionJuego .cuadrado{
+  border: 3px solid gray;
+}
+
+.tatetiSectionJuego div.cuadrado img {
+  width: 100%;
+  height: 100%;
+}
+
+.tatetiTabla, th, td {
+  border: 3px solid gray;
+  border-collapse: collapse;
+  padding: 1em;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.tatetiTabla {
+  grid-area: tabla;
+}
+
+/*JUEGO MENSAJE y RESTART*/
+
+.tateti .tatetiMensajeTurno {
+  grid-area: mensajeTurno;
+  color: black;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  margin-top: 5em;
+}
+
+.tateti .tatetiMensajeGanador {
+  grid-area: mensajeGanador;
+  color: black;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  margin: 1em;
+}
+
+.tateti .tatetiRestart {
+  grid-area: restart;
+  background: black;
+  color: blanchedalmond;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 2em;
+  border: 3px solid #2c3e50;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.tateti .tatetiRestart:hover {
+  color: gold;
+}
+
+/*CONFIGURACION*/
+
+.tatetiDimension {
+  width: 100vw;
+  height: 100vh;
+}
+
+.disabled{
+  display : none;
+}
+
+.tatetiSectionConf {
+  width: 100%;
+  height: 80%;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: auto 90% auto;
+  grid-template-areas:  ". opciones .";
+}
+
+.tatetiSectionConf .lista-opciones{
+  grid-area: opciones;  
+}
+
+.tatetiSectionConf .lista-opciones .opcion {
+  border:  solid 1px;
+  background-color: #ABF981;
+  text-align: center;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 2em;
+  line-height: 3em;
+}
+
+@media (min-width:481px) {
+  /*Para desktop*/
+  .tatetiSectionConf {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: auto 30% auto;
+    grid-template-areas:  ". . ."". opciones ."". . .";
+  }
+  
+  .tatetiSectionConf .lista-opciones{
+    grid-area: opciones;  
+  }
+  
+  .tatetiSectionConf .lista-opciones .opcion {
+    border:  solid 1px;
+    background-color: #ABF981;
+    text-align: center;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 2em;
+    line-height: 3em;
+  }
+}
+
+.tatetiSectionConf .lista-opciones .opcion:hover {
+  background-color: #F9DB81;
+}

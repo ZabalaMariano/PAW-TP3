@@ -1,9 +1,7 @@
 var window = window || {},
 document = document || {},
 console = console || {},
-Criptograma = Criptograma || {},
-principal = document.createElement("section");
-principal.classList.add("principalVentanaOpciones");
+Criptograma = Criptograma || {};
 
 Criptograma.armarCriptograma = function (contenedor) 
 {
@@ -14,6 +12,8 @@ Criptograma.armarCriptograma = function (contenedor)
             Criptograma.contenedor = document.getElementById(Criptograma.contenedor);
         }
 
+        var principal = document.createElement("section");
+        principal.classList.add("principalVentanaOpciones");
         Criptograma.contenedor.appendChild(principal);
 
         Criptograma.generarMenu();
@@ -26,7 +26,7 @@ Criptograma.generarMenu = function(){
     pTipoCriptografo = document.createElement("p");
 
     articleTipoCriptografo.classList.add("articleTipoCriptografo");
-    pTipoCriptografo.classList.add("texto");
+    pTipoCriptografo.classList.add("textoCriptografo");
     pTipoCriptografo.innerHTML = "Elija un criptográfo";
 
     var ul = document.createElement("ul");
@@ -55,6 +55,8 @@ Criptograma.generarMenu = function(){
     
     articleTipoCriptografo.appendChild(pTipoCriptografo);
     articleTipoCriptografo.appendChild(ul);
+
+    var principal = document.querySelector("section.principalVentanaOpciones");
     principal.appendChild(articleTipoCriptografo);
 
     //FRASES
@@ -62,7 +64,7 @@ Criptograma.generarMenu = function(){
     pFrase = document.createElement("p");
 
     articleFrases.classList.add("articleFrases");
-    pFrase.classList.add("texto");
+    pFrase.classList.add("textoFrase");
     pFrase.innerHTML = "Elija una frase";
 
     var ulFrases = document.createElement("ul");
@@ -102,6 +104,7 @@ Criptograma.generarMenu = function(){
 }
 
 Criptograma.jugar = function(){
+    var principal = document.querySelector("section.principalVentanaOpciones");
     var articleTipoCriptografo = principal.querySelector(".articleTipoCriptografo"),
     articleFrases = principal.querySelector(".articleFrases"),
     pSiguiente = principal.querySelector(".pSiguiente");
@@ -109,6 +112,7 @@ Criptograma.jugar = function(){
     var criptografo = articleTipoCriptografo.querySelector('input[name="tipoCriptograma"]:checked').id,
     frase = articleFrases.querySelector('input[name="frase"]:checked').id;
 
+    var principal = document.querySelector("section.principalVentanaOpciones");
     principal.removeChild(articleTipoCriptografo);
     principal.removeChild(articleFrases);
     principal.removeChild(pSiguiente);
@@ -264,7 +268,7 @@ Criptograma.generarJuego = function(criptografo,frase){
         divElemento.appendChild(imgDown);
         divFrase.appendChild(divElemento);
     }
-    
+    var principal = document.querySelector("section.principalVentanaJuego");
     principal.appendChild(divTabla);
     principal.appendChild(pOK);
     principal.appendChild(pMal);
@@ -272,6 +276,7 @@ Criptograma.generarJuego = function(criptografo,frase){
 }
 
 Criptograma.evaluarRespuesta = function(){
+    var principal = document.querySelector("section.principalVentanaJuego");
     var inputs = principal.querySelectorAll(".respuesta"),
     
     //Veo donde hay una respuesta

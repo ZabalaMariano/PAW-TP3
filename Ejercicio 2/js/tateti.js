@@ -1,10 +1,7 @@
 var window = window || {},
 document = document || {},
 console = console || {},
-Juego = Juego || {},
-
-mensaje = document.createElement("p"),//Creo paragraph 
-restart = document.createElement("div");//Creo boton
+Juego = Juego || {};
 
 Juego.contenedor = "default";//Inicializo contenedor
 Juego.armarJuego = function (contenedor) 
@@ -18,7 +15,7 @@ Juego.armarJuego = function (contenedor)
         var section = document.createElement("section");//Creo cuerpo
         section.classList.add("tatetiSectionJugadores");//Le añado una clase
         Juego.contenedor.appendChild(section);
-        Juego.contenedor.classList.add("tateti");//Le añado una clase
+        Juego.contenedor.classList.add("tatetiInicio");//Le añado una clase
 
         Juego.generarMenuJugadores(section);//En jugadores.js
     });
@@ -39,7 +36,7 @@ Juego.generarMenuSeleccion = function(section){
         ul.appendChild(opcion); 
     });
       
-section.appendChild(ul);
+    section.appendChild(ul);
 }
 
 Juego.seleccion = function(e){
@@ -51,28 +48,47 @@ Juego.seleccion = function(e){
 Juego.generarJuego = function(modo){
     var section = document.querySelector(".tatetiSectionConf");
   
+    Juego.contenedor.classList.remove("tatetiDimension");//Le quito una clase
+    Juego.contenedor.classList.add("tateti");//Le añado una clase
     section.classList.remove("tatetiSectionConf");//Le quito una clase
     section.classList.add("tatetiSectionJuego");//Le añado una clase
 
-    var nivel = Juego.niveles.filter(n => n.modo === modo),
+    var nivel = Juego.niveles.filter(n => n.modo === modo)[0],
         section = document.querySelector(".tatetiSectionJuego"),
         div, img;
 
-    Juego.nivelActual = nivel[0];
+    Juego.nivelActual = nivel;
+    var dimensionTateti = Juego.nivelActual.ancho;
+    section.style.setProperty('grid-template', `repeat(${dimensionTateti}, 1fr) / repeat(${dimensionTateti}, 1fr)`);
 
-    if(Juego.nivelActual.ancho==3){
-        section.classList.add("dimension3");//Le añado una clase
-    }else if(Juego.nivelActual.ancho==4){
-        section.classList.add("dimension4");//Le añado una clase
-    }else if(Juego.nivelActual.ancho==5){
-        section.classList.add("dimension5");//Le añado una clase
-    }else{
-        section.classList.add("dimension6");//Le añado una clase
-    }
+    var mensajeTurno = document.createElement("p"),//Creo paragraph 
+    mensajeGanador = document.createElement("p"),//Creo paragraph 
+    restart = document.createElement("div");//Creo boton
 
-    Juego.contenedor.appendChild(mensaje);
-    mensaje.classList.add("tatetiMensajeFin");//Le añado una clase
-    mensaje.textContent = "Ganador ?";
+    restart.addEventListener("click", function(event){
+        Juego.jugador = 'x';
+        Juego.ganador = false;
+        mensajeGanador.textContent = "";
+        var cuadrados = document.querySelectorAll("div.cuadrado");
+    
+        for(var i=0;i<cuadrados.length;i++){
+            cuadrados[i].setAttribute("value","blanco");
+            cuadrados[i].classList.remove("descubierto");
+            cuadrados[i].classList.add("sin-descubrir");
+            var img = cuadrados[i].querySelector("img");
+            img.setAttribute("src","img/blanco.svg");
+            mensajeTurno.textContent = "Turno de "+Juego.jugadores.x;    
+        }
+    });
+
+    Juego.contenedor.appendChild(mensajeTurno);
+    mensajeTurno.classList.add("tatetiMensajeTurno");//Le añado una clase
+    mensajeTurno.textContent = "Turno de "+Juego.jugadores.x;
+
+    Juego.contenedor.appendChild(mensajeGanador);
+    mensajeGanador.classList.add("tatetiMensajeGanador");//Le añado una clase
+    mensajeGanador.textContent = "";
+
     Juego.contenedor.appendChild(restart);
     restart.classList.add("tatetiRestart");//Le añado una clase
     restart.textContent = "Restart";
@@ -119,8 +135,9 @@ Juego.dibujar = function(e){
 
         if (!Juego.ganador){//Si no hay ganador
             if(preguntoSiGano()){
-                gano = (Juego.jugador=='x') ? Juego.jugadores.x : Juego.jugadores.o;
-                mensaje.textContent = 'Ganó el jugador ' + gano;
+                var gano = (Juego.jugador=='x') ? Juego.jugadores.x : Juego.jugadores.o;
+                var mensajeGanador = document.querySelector("p.tatetiMensajeGanador");
+                mensajeGanador.textContent = 'Ganó ' + gano;
 
                 //Sumo puntos a la tabla
                 if(Juego.jugador=='x'){
@@ -136,8 +153,11 @@ Juego.dibujar = function(e){
                 Juego.ganador = true;
             }
         }
-
+        //Cambio turno
         Juego.jugador = (Juego.jugador=='x')?'o':'x';
+        var actual = (Juego.jugador=='x') ? Juego.jugadores.x : Juego.jugadores.o;
+        var mensajeTurno = document.querySelector("p.tatetiMensajeTurno");
+        mensajeTurno.textContent = "Turno de "+actual;
     }  
 }
 
@@ -223,6 +243,7 @@ function ganoDiagonal(){
         }
     }
 
+    contador = 0;//Reinicio
     for(i=0;i<meta;i++){//Diagonal inversa
         if(matriz[meta-i-1][i]==Juego.jugador){
             contador++;
@@ -236,21 +257,6 @@ function ganoDiagonal(){
 
     return false;
 }
-
-restart.addEventListener("click", function(event){
-    Juego.jugador = 'x';
-    Juego.ganador = false;
-    mensaje.textContent = "Ganador ?";
-    var cuadrados = document.querySelectorAll("div.cuadrado");
-
-    for(var i=0;i<cuadrados.length;i++){
-        cuadrados[i].setAttribute("value","blanco");
-        cuadrados[i].classList.remove("descubierto");
-        cuadrados[i].classList.add("sin-descubrir");
-        var img = cuadrados[i].querySelector("img");
-        img.setAttribute("src","img/blanco.svg");
-    }
-});
 
 Juego.crearTabla = function(){
     table = document.createElement("table");//Creo table

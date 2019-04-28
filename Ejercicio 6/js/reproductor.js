@@ -1,9 +1,7 @@
 var window = window || {},
 document = document || {},
 console = console || {},
-Reproductor = Reproductor || {},
-principal = document.createElement("section");
-principal.classList.add("principal");
+Reproductor = Reproductor || {};
 
 Reproductor.armarReproductor = function (contenedor) 
 {
@@ -14,6 +12,8 @@ Reproductor.armarReproductor = function (contenedor)
             Reproductor.contenedor = document.getElementById(Reproductor.contenedor);
         }
 
+        var principal = document.createElement("section");
+        principal.classList.add("principal");
         Reproductor.contenedor.appendChild(principal);
 
         var idVideo = 0;//Muestro el id=0 por default
@@ -56,6 +56,9 @@ Reproductor.generarMenu = function(idVideo){
     section.appendChild(pTitulo);
     section.appendChild(pReproducciones);
     section.appendChild(addressAutor);
+
+    var principal = document.querySelector("section.principal");
+
     principal.appendChild(section);
 
     var asideLista = document.createElement("aside"),
@@ -97,6 +100,7 @@ Reproductor.generarMenu = function(idVideo){
 Reproductor.seleccion = function(e){
     if(e.target.matches("li.liVideoLista")){
 
+        var principal = document.querySelector("section.principal");
         var section = principal.querySelector(".videoPrincipal");
         var asideLista = principal.querySelector(".listaReproduccion");
 
@@ -105,6 +109,7 @@ Reproductor.seleccion = function(e){
         
         Reproductor.generarMenu(e.target.id);
     }else if(e.target.matches("p.tituloVideoLista") || e.target.matches("p.nombreAutorLista") || e.target.matches("img.imgVideoLista")){
+        var principal = document.querySelector("section.principal");
         var section = principal.querySelector(".videoPrincipal");
         var asideLista = principal.querySelector(".listaReproduccion");
 

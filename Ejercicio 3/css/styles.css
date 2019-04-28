@@ -1,0 +1,272 @@
+@import url(reset.css);
+
+/*OPCIONES*/
+/*default telefono vertical*/
+.principalVentanaOpciones {
+  width: 100vw;
+  height: 50vh;
+  margin-top: 5px;
+  padding: 5px 0px;
+  display: grid;
+  grid-template-rows: 5% 30% 5% 40% 5% auto;
+  grid-template-columns: auto 95% auto;
+  grid-template-areas:". textocriptografo ." 
+                      ". tipoCriptografia ."
+                      ". textofrase ."
+                      ". frases ."
+                      ". . ."
+                      ". siguiente ." ;
+}
+
+.pSiguiente {
+  grid-area: siguiente;
+  background: black;
+  color: blanchedalmond;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  border: 3px solid #2c3e50;
+  border-radius: 2px;
+  text-align: center;
+  line-height: 3em;
+  margin-top: 3em;
+}
+
+@media (min-width:481px) {
+  /*para telefono horizontal*/
+  .principalVentanaOpciones {
+    width: 100vw;
+    height: 100vh;
+    margin-top: 5px;
+    padding: 5px 0px;
+    display: grid;
+    grid-template-rows: 5% 30% 5% 40% 5% auto;
+  grid-template-columns: auto 95% auto;
+  grid-template-areas:". textocriptografo ." 
+                      ". tipoCriptografia ."
+                      ". textofrase ."
+                      ". frases ."
+                      ". . ."
+                      ". siguiente ." ;
+  }
+}
+
+@media (min-width:720px) {
+  /*para desktop*/
+  .principalVentanaOpciones {
+    width: 100vw;
+    height: 50vh;
+    margin-top: 5px;
+    padding: 5px 0px;
+    display: grid;
+    grid-template-rows: 30% 40% 15% auto;
+    grid-template-columns: auto 20% auto;
+    grid-template-areas: ". tipoCriptografia ."
+                         ". frases ."
+                         ". . ."
+                         ". siguiente ." ;
+  }
+
+  .pSiguiente {
+    margin-top: 0em;
+  }
+}
+
+.textoCriptografo {
+  grid-area: textocriptografo;
+  color: black;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.textoFrase {
+  grid-area: textofrase;
+  color: black;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.articleTipoCriptografo {
+  grid-area: tipoCriptografia;
+}
+
+.articleFrases {
+  grid-area: frases;
+}
+
+.pSiguiente:hover {
+  color: gold;
+}
+
+.liTipoCriptografo, .liFrase {
+  border:  solid 1px green;
+  background-color: #ABF981;
+  text-align: center;
+}
+
+.liTipoCriptografo:hover, .liFrase:hover {
+  background-color: #F9DB81;
+}
+
+/*JUEGO*/
+/*defualt telefono solo horizontal*/
+.principalVentanaJuego {
+  width: 100vw;
+  height: 100vh;
+  margin-top: 5px;
+  padding: 5px 0px;
+  display: grid;
+  grid-template-rows: 40% 40% 10% auto;
+  grid-template-columns: 5% 30% 30% 30% 5%;
+  grid-template-areas: ". tabla tabla tabla ."
+                       ". . botonOK . ."
+                       ". cantidadErrores cantidadErrores cantidadErrores ."
+                       ". frase frase frase .";               
+}
+
+.divTabla {
+  grid-area: tabla;
+  display: grid;
+  grid-template: repeat(3,33.33%) / repeat(26,3.8%);
+}
+
+.divFrase {
+  grid-area: frase;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 50px);
+}
+
+.divElemento {
+  display: grid;
+  grid-template-rows: 5% auto 50%;
+  grid-template-columns: 100%; 
+  grid-template-areas: "imagenUp"
+                       "guion"
+                       "imagenDown";
+}
+
+.imgUp {
+  grid-area: imagenUp;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 4em;
+  text-align: center;
+}
+
+.pGuion {
+  grid-area: guion;
+  font-size: 4em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.imgDown {
+  grid-area: imagenDown;
+}
+
+.pMal {
+  grid-area: cantidadErrores;
+  color: black;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+  margin: 1em;
+}
+
+.pOK {
+  grid-area: botonOK;
+  background: black;
+  color: blanchedalmond;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 2em;
+  border: 3px solid #2c3e50;
+  border-radius: 2px;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+@media (min-width:720px){
+  /*desktop*/
+  .principalVentanaJuego {
+    width: 100vw;
+    height: 50vh;
+    margin-top: 5px;
+    padding: 5px 0px;
+    display: grid;
+    grid-template-rows: 30% 20% auto;
+    grid-template-columns: 5% 10% 20% 60% 5%;
+    grid-template-areas: ". tabla tabla tabla ."
+                         " . botonOK cantidadErrores . ."
+                         ". frase frase frase .";               
+  }
+
+  .pMal {
+    grid-area: cantidadErrores;
+    color: black;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+    margin: 1em;
+  }
+  
+  .pOK {
+    grid-area: botonOK;
+    background: black;
+    color: blanchedalmond;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 1em;
+    border: 3px solid #2c3e50;
+    border-radius: 2px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 1em;
+  }
+}
+
+.pOK:hover {
+  color: gold;
+}
+
+.noDisplay {
+  visibility: hidden;
+}
+
+.cuadrado{
+  border: 1px solid gray;
+}
+
+.cuadrado img {
+  width: 100%;
+  height: 100%;
+}
+
+.divRespuesta{
+  border: 1px solid gray;
+}
+
+.divRespuesta input{
+  font-size: 1em;
+  font-weight: bold;
+  margin-left: 25%;
+  width: 50%;
+  height: 80%;
+  vertical-align: middle;
+}
+
+.casilla p{
+  font-size: 1em;
+  font-weight: bold;
+  margin-left: 40%;
+  width: 50%;
+  height: 80%;
+}

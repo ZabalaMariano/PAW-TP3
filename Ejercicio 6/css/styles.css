@@ -1,0 +1,240 @@
+@import url(reset.css);
+
+/*CONTENEDOR*/
+#contenedor {
+  width: 100vw;
+  height: 100%;
+}
+
+.principal {
+  width: 100%;
+  height: 100%;
+  padding: 2% 0%;
+  background: #000000;
+  display: grid;
+  grid-template-rows: 50% auto;
+  grid-template-columns: 100%;
+  grid-template-areas: "videoPrincipal"
+                       "listaVideos"
+}
+
+@media (min-width:480px) {
+  /*para celular horizontal*/
+    .principal {
+      width: 100%;
+      height: 100%;
+      background: #000000;
+      display: grid;
+      grid-template-rows: 50% auto;
+      grid-template-columns: 100%;
+      grid-template-areas: "videoPrincipal"
+                          "listaVideos"
+    }
+  }
+
+@media (min-width:720px) {
+/*para desktop*/
+  .principal {
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: auto 50% 1% 35% auto;
+    grid-template-areas: ". videoPrincipal . listaVideos ." ;
+  }
+}
+
+/*SECTION video principal*/
+.videoPrincipal {
+  grid-area: videoPrincipal;
+  display: grid;
+  grid-template-rows: 55% 10% 10% 10% 15%;
+  grid-template-columns: auto 90% auto;
+  grid-template-areas: ". video ."
+                      ". titulo ."
+                      ". visualizaciones ."
+                      ". . ."
+                      ". autor .";
+}
+
+.videoPrincipal video {
+  grid-area: video;
+  max-height: 55%;
+}
+
+.addressAutor {
+  grid-area: autor;
+  margin-bottom: 1em;
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-template-columns: 20% 80%;
+  grid-template-areas: "imagen nombreAutor"
+                       "imagen fchPublicacion";
+}
+
+@media (min-width:480px) {
+  /*celular horizontal*/
+  .videoPrincipal {
+    grid-area: videoPrincipal;
+    display: grid;
+    grid-template-rows: 70% 5% 5% 5% 15%;
+    grid-template-columns: auto 90% auto;
+    grid-template-areas: ". video ."
+                        ". titulo ."
+                        ". visualizaciones ."
+                        ". . ."
+                        ". autor .";
+  }
+
+  .videoPrincipal video {
+    grid-area: video;
+    max-height: 300px;
+  }
+}
+
+@media (min-width:720px) {
+  /*desktop*/
+  .videoPrincipal {
+    grid-area: videoPrincipal;
+    display: grid;
+    grid-template-rows: 75% 5% 5% 5% 10%;
+    grid-template-columns: 50% auto;
+    grid-template-areas: "video video"
+                        "titulo ."
+                        "visualizaciones ."
+                        ". ."
+                        "autor .";
+  }
+
+  .videoPrincipal video {
+    grid-area: video;
+    max-height: 320px;
+  }
+
+  .addressAutor {
+    margin-bottom: 0em;
+  }
+}
+
+.videoPrincipal .titulo {
+  grid-area: titulo;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  color: #ffffff;
+  margin-top: 1em;
+  margin-left: 10px;
+}
+
+.videoPrincipal .reproducciones {
+  grid-area: visualizaciones;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  color: #ffffff;
+  margin-top: 1em;
+  margin-left: 10px;
+}
+
+.videoPrincipal .addressAutor .imgAutor {
+  grid-area: imagen;
+  width: 100%;
+  height: 100%;
+}
+
+.videoPrincipal .addressAutor .nombreAutor {
+  grid-area: nombreAutor;
+  padding-left:5px;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  color: #ffffff;
+}
+
+.videoPrincipal .addressAutor time {
+  grid-area: fchPublicacion;
+  padding-left:5px;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  color: #ffffff;
+}
+
+/*SECTION aside lista videos*/
+.listaReproduccion {/*aside*/
+  grid-area: listaVideos;
+}
+
+.listaReproduccion .lista .liVideoLista:nth-child(2n+1) {
+  background: #ffe6e6;
+}
+
+.listaReproduccion .lista .liVideoLista:nth-child(2n) {
+  background: #ffcccc;
+}
+
+.listaReproduccion .lista .liVideoLista {/*li*/
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: 20% 20% 60%;
+  grid-template-columns: 40% 60%;
+  grid-template-areas: "imagen tituloVideo"
+                       "imagen nombreAutor"
+                       "imagen .";
+}
+
+.listaReproduccion .lista .liVideoLista:hover {/*li*/
+  color: red;
+}
+
+.listaReproduccion .lista .liVideoLista .imgVideoLista {
+  grid-area: imagen;
+  margin: 1px 1px 1px 2px;
+}
+
+.listaReproduccion .lista .liVideoLista .imgVideoListaReproduciendose {
+  opacity: 0.6;
+}
+
+.listaReproduccion .lista .liVideoLista .tituloVideoLista {
+  grid-area: tituloVideo;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  margin-top: 1em;
+  text-align: right;
+  padding-right: 10%;
+}
+
+.listaReproduccion .lista .liVideoLista .nombreAutorLista {
+  grid-area: nombreAutor;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 1em;
+  margin-top: 1em;
+  text-align: right;
+  padding-right: 10%;
+}
+
+@media (min-width:720px) {
+  .listaReproduccion .lista .liVideoLista .tituloVideoLista {
+    grid-area: tituloVideo;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 1em;
+    margin-top: 1em;
+    text-align: left;
+    padding-left: 10%;
+  }
+  
+  .listaReproduccion .lista .liVideoLista .nombreAutorLista {
+    grid-area: nombreAutor;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 1em;
+    margin-top: 1em;
+    text-align: left;
+    padding-left: 10%;
+  }
+}

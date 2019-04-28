@@ -34,7 +34,7 @@ Criptograma.frases = [
   {
     id: 2,
     frase: "frase 3",
-    texto: "Por favor envi­e todo el spam a mi direccion principal, root@localhost"
+    texto: "Por favor envie todo el spam a mi direccion principal, root@localhost"
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ Criptograma.frases = [
   {
     id: 5,
     frase: "frase 6",
-    texto: "Me encantari­a cambiar el mundo, pero ellos no me daran el codigo fuente."
+    texto: "Me encantaria cambiar el mundo, pero ellos no me daran el codigo fuente."
   }
 ];
 
