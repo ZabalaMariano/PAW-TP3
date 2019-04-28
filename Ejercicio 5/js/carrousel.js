@@ -5,7 +5,7 @@ var Carrousel = Carrousel || {},
 
 Carrousel.contenedor = "vacio";
 Carrousel.images = ["beach","glass","path","wall"];
-
+Carrousel.animations = ["animation1","animation2","animation3"];
 
 Carrousel.onLoadWindow = function (contenedor) {
   Carrousel.contenedor = contenedor;
@@ -13,7 +13,6 @@ Carrousel.onLoadWindow = function (contenedor) {
     if (typeof Carrousel.contenedor === "string") {
       Carrousel.contenedor = document.getElementById(Carrousel.contenedor);
     var section = document.createElement("section");
-    section.classList.add("precarga");
     Carrousel.contenedor.appendChild(section);
     Carrousel.generate(section);
     }
@@ -49,6 +48,7 @@ Carrousel.generate = function(section){
     img.setAttribute("src", dir + Carrousel.images[i] + ext);
     img.classList.add("disabled-image");
     img.classList.add("responsive-image");
+    img.classList.add("precarga");
     img.setAttribute("img-number",i);
 
 
@@ -95,7 +95,17 @@ Carrousel.next = function(e){
   img.classList.add("disabled-image");
   next.classList.remove("disabled-image");
   next.classList.add("current");
+  Carrousel.insertAnimation(next);
 }
+
+Carrousel.insertAnimation = function(element){
+
+Carrousel.animations.forEach( a => element.classList.remove(a));
+console.log(parseInt(Math.random() * Carrousel.animations.length));
+  element.classList.add(Carrousel.animations[parseInt(Math.random() * Carrousel.animations.length)]);
+
+}
+
 /*CUENTA ATRAS CON MOD*/
 Carrousel.prev = function(e){
 
@@ -110,9 +120,11 @@ Carrousel.prev = function(e){
   img.classList.add("disabled-image");
   prev.classList.remove("disabled-image");
   prev.classList.add("current");
-
+  Carrousel.insertAnimation(prev);
 }
 
+
+/*LOGICA PARA LOS BOTONES*/
 Carrousel.buttonCheck = function(e){
   let input = e.target;
   if(input.getAttribute("checked") != true){
@@ -124,10 +136,12 @@ Carrousel.buttonCheck = function(e){
     imgC.classList.add("disabled-image");
     jump.classList.remove("disabled-image");
     jump.classList.add("current");
+
+    Carrousel.insertAnimation(jump);
     Carrousel.setUncheckedElse(img);
   }
 }
-
+/*LOGICA PAR BOTONES*/
 Carrousel.setUncheckedElse = function (current){
 
   let inputs = Array.prototype.slice.call(document.querySelectorAll(".button-container input[type='radio']"));
