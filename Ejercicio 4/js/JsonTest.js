@@ -38,14 +38,40 @@ JsonTest.getTest = function (){
   }
 
   JsonTest.generate = function(){
+
     var section = document.getElementById("JsonTest");
 
-    let p = document.createElement("p");
+    var title, article, divpregunta, ulrespuestas ,lirespuesta, divtimer,sectionp;
 
-    p.innerHTML = JSON.stringify(JsonTest.test);
+    title = document.createElement("h2");
+    article = document.createElement("article");
+    sectionp = document.createElement("section");
+    divtimer =  document.createElement("div");
 
-    console.log(JsonTest.test);
+    JsonTest.test.preguntas.forEach(pregunta => {
+      divpregunta = document.createElement("div");
+      let p = document.createElement("span");      
+      ulrespuestas =  document.createElement("ul");
+      p.innerHTML = pregunta.pregunta;
+      pregunta.respuestas.forEach( respuesta => {
 
-    section.appendChild(p);
+        lirespuesta =  document.createElement("li");
+
+        lirespuesta.innerHTML = respuesta;
+        ulrespuestas.appendChild(lirespuesta);
+
+      });
+
+      divpregunta.appendChild(p);
+      divpregunta.appendChild(ulrespuestas);
+      sectionp.appendChild(divpregunta);
+    });
+
+    title.innerHTML = JsonTest.test.titulo;
+
+    article.appendChild(title);
+    article.appendChild(sectionp);
+    article.appendChild(divtimer);
+    section.appendChild(article);
 
 }

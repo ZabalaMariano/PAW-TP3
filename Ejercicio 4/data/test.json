@@ -1,5 +1,22 @@
 {
   "titulo":"test1",
+  "preguntas": [
+    {
+      "pregunta": "Pregunta 1",
+      "respuestas": ["respuestaA","respuestaB","respuestaC"],
+      "correctas": [0,2]
+    },
+    {
+      "pregunta": "Pregunta 2",
+      "respuestas": ["respuestaD","respuestaE","respuestaF"],
+      "correctas": [0,1]
+    },
+    {
+      "pregunta": "Pregunta 3",
+      "respuestas": ["respuestaG","respuestaH","respuestaI"],
+      "correctas": [1]
+    }
+  ],
   "cantidadPreguntas": 3,
   "tiempo": 1000
 }
