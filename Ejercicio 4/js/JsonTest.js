@@ -5,6 +5,8 @@ var JsonTest = JsonTest || {},
 
 JsonTest.contenedor = "vacio";
 JsonTest.test = {};
+JsonTest.tiempo = 0;
+JsonTest.interval = {};
 
 JsonTest.onLoadWindow = function (contenedor) {
   JsonTest.contenedor = contenedor;
@@ -75,15 +77,21 @@ JsonTest.getTest = function (){
       divpregunta.appendChild(p);
       divpregunta.appendChild(ulrespuestas);
       sectionp.appendChild(divpregunta);
+
     });
 
     title.innerHTML = JsonTest.test.titulo;
-
+    divtimer.classList.add("timer");
     article.appendChild(title);
     sectionp.appendChild(divtimer);
     article.appendChild(sectionp);
     section.appendChild(article);
-
+    JsonTest.tiempo = JsonTest.test.tiempo / 1000;
+    JsonTest.interval = window.setInterval(JsonTest.contador,1000);
+    window.setTimeout(function(interval){
+      alert("paso el tiempo!");
+      window.clearInterval(JsonTest.interval ,10);
+    },JsonTest.test.tiempo);
 }
 
 JsonTest.onClickRespuesta = function(e){
@@ -98,4 +106,10 @@ JsonTest.onClickRespuesta = function(e){
     e.target.classList.add("not-selected");
   }
 
+}
+JsonTest.contador = function(){
+  let div = document.querySelector("div.timer");
+
+  --JsonTest.tiempo;
+  div.innerHTML = JsonTest.tiempo;
 }
