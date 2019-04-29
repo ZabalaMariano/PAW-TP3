@@ -41,7 +41,7 @@ JsonTest.getTest = function (){
 
     var section = document.getElementById("JsonTest");
 
-    var title, article, divpregunta, ulrespuestas ,lirespuesta, divtimer,sectionp;
+    var title, article, divpregunta, ulrespuestas ,lirespuesta, divtimer,sectionp,check,labelc;
 
     title = document.createElement("h2");
     article = document.createElement("article");
@@ -58,7 +58,16 @@ JsonTest.getTest = function (){
       pregunta.respuestas.forEach( respuesta => {
 
         lirespuesta =  document.createElement("li");
-        lirespuesta.innerHTML = respuesta;
+
+        check = document.createElement("input");
+        labelc = document.createElement("label");
+        check.type = "checkbox";
+        check.classList.add("not-selected");
+        check.addEventListener("click",JsonTest.onClickRespuesta);
+        labelc.innerText = respuesta;
+        
+        lirespuesta.appendChild( check);
+        lirespuesta.appendChild(labelc);
         ulrespuestas.appendChild(lirespuesta);
 
       });
@@ -74,5 +83,19 @@ JsonTest.getTest = function (){
     sectionp.appendChild(divtimer);
     article.appendChild(sectionp);
     section.appendChild(article);
+
+}
+
+JsonTest.onClickRespuesta = function(e){
+
+  console.log(e);
+  console.log(e.target.classList.contains("not-selected"));
+  if(e.target.classList.contains("not-selected")){
+    e.target.classList.remove("not-selected");
+    e.target.classList.add("selected");
+  }else{
+    e.target.classList.remove("selected");
+    e.target.classList.add("not-selected");
+  }
 
 }
