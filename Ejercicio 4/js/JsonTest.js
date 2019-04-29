@@ -49,14 +49,15 @@ JsonTest.getTest = function (){
     divtimer =  document.createElement("div");
 
     JsonTest.test.preguntas.forEach(pregunta => {
+
       divpregunta = document.createElement("div");
-      let p = document.createElement("span");      
+      let p = document.createElement("span");
       ulrespuestas =  document.createElement("ul");
       p.innerHTML = pregunta.pregunta;
+
       pregunta.respuestas.forEach( respuesta => {
 
         lirespuesta =  document.createElement("li");
-
         lirespuesta.innerHTML = respuesta;
         ulrespuestas.appendChild(lirespuesta);
 
@@ -70,8 +71,8 @@ JsonTest.getTest = function (){
     title.innerHTML = JsonTest.test.titulo;
 
     article.appendChild(title);
+    sectionp.appendChild(divtimer);
     article.appendChild(sectionp);
-    article.appendChild(divtimer);
     section.appendChild(article);
 
 }
