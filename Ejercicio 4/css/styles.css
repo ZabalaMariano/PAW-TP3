@@ -1,6 +1,11 @@
 .not-selected{
   cursor: pointer;
 }
-.selected {
+li.selected::before {
+  content: "\2713  ";
+  color: green;
+}
+
+.selected{
   cursor: pointer;
 }

@@ -62,12 +62,12 @@ JsonTest.getTest = function (){
         check = document.createElement("input");
         labelc = document.createElement("label");
         check.type = "checkbox";
-        check.classList.add("not-selected");
-        check.addEventListener("click",JsonTest.onClickRespuesta);
-        labelc.innerText = respuesta;
-        
-        lirespuesta.appendChild( check);
-        lirespuesta.appendChild(labelc);
+        lirespuesta.classList.add("not-selected");
+        lirespuesta.addEventListener("click",JsonTest.onClickRespuesta);
+        lirespuesta.innerText = respuesta;
+
+        //lirespuesta.appendChild( check);
+        //lirespuesta.appendChild(labelc);
         ulrespuestas.appendChild(lirespuesta);
 
       });
