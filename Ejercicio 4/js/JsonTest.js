@@ -43,42 +43,43 @@ JsonTest.getTest = function (){
 
     var section = document.getElementById("JsonTest");
 
-    var title, article, divpregunta, ulrespuestas ,lirespuesta, divtimer,sectionp,check,labelc;
+    var title, article, divpregunta, ulrespuestas ,lirespuesta, divtimer,sectionp;
 
     title = document.createElement("h2");
     article = document.createElement("article");
     sectionp = document.createElement("section");
     divtimer =  document.createElement("div");
 
-    JsonTest.test.preguntas.forEach(pregunta => {
+    for(let j = 0 ; j< JsonTest.test.preguntas.length; j++) {
 
       divpregunta = document.createElement("div");
       let p = document.createElement("span");
       ulrespuestas =  document.createElement("ul");
+      ulrespuestas.classList.add("unlisted");
+
+      let pregunta = JsonTest.test.preguntas[j];
       p.innerHTML = pregunta.pregunta;
 
-      pregunta.respuestas.forEach( respuesta => {
+      for(let i= 0; i<pregunta.respuestas.length ;i++) {
 
         lirespuesta =  document.createElement("li");
-
-        check = document.createElement("input");
-        labelc = document.createElement("label");
-        check.type = "checkbox";
+        lirespuesta.setAttribute("data-r", i);
+        lirespuesta.setAttribute("data-p",j);
         lirespuesta.classList.add("not-selected");
+        lirespuesta.classList.add("respuesta");
         lirespuesta.addEventListener("click",JsonTest.onClickRespuesta);
-        lirespuesta.innerText = respuesta;
+        lirespuesta.innerText = pregunta.respuestas[i];
 
-        //lirespuesta.appendChild( check);
-        //lirespuesta.appendChild(labelc);
         ulrespuestas.appendChild(lirespuesta);
 
-      });
+      }
+
 
       divpregunta.appendChild(p);
       divpregunta.appendChild(ulrespuestas);
       sectionp.appendChild(divpregunta);
 
-    });
+    }
 
     title.innerHTML = JsonTest.test.titulo;
     divtimer.classList.add("timer");
@@ -87,11 +88,10 @@ JsonTest.getTest = function (){
     article.appendChild(sectionp);
     section.appendChild(article);
     JsonTest.tiempo = JsonTest.test.tiempo / 1000;
+
+    divtimer.innerHTML = JsonTest.tiempo + " segundos";
     JsonTest.interval = window.setInterval(JsonTest.contador,1000);
-    window.setTimeout(function(interval){
-      alert("paso el tiempo!");
-      window.clearInterval(JsonTest.interval ,10);
-    },JsonTest.test.tiempo);
+    window.setTimeout(JsonTest.finalizar,JsonTest.test.tiempo);
 }
 
 JsonTest.onClickRespuesta = function(e){
@@ -111,5 +111,39 @@ JsonTest.contador = function(){
   let div = document.querySelector("div.timer");
 
   --JsonTest.tiempo;
-  div.innerHTML = JsonTest.tiempo;
+  div.innerHTML = JsonTest.tiempo + " segundos";
+}
+
+JsonTest.finalizar = function(interval){
+  window.clearInterval(JsonTest.interval ,10);
+
+  let respuestas = Array.prototype.slice.call(document.querySelectorAll("ul li.respuesta"));
+
+  respuestas.forEach(r => r.removeEventListener("click",JsonTest.onClickRespuesta));
+
+  JsonTest.validar();
+}
+
+JsonTest.validar = function(){
+
+  let preguntas = JsonTest.test.preguntas;
+  console.log(preguntas);
+  for(let i = 0 ; i < preguntas.length; i++){
+
+    let ul = Array.prototype.slice.call(document.querySelectorAll("li[data-p='"+i+"'].selected"));
+
+    for(let j = 0; j < ul.length ; j++) {
+      console.log(preguntas[i].correctas);
+      if(preguntas[i].correctas.indexOf(parseInt(ul[j].getAttribute("data-r"))) > -1  ){
+        ul[j].classList.remove("selected");
+        ul[j].classList.add("correct");
+      }else{
+        ul[j].classList.remove("selected");
+        ul[j].classList.add("incorrect");
+      }
+    }
+
+  }
+
+
 }

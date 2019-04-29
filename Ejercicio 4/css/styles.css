@@ -1,11 +1,30 @@
 .not-selected{
   cursor: pointer;
 }
-li.selected::before {
+li.correct::before {
   content: "\2713  ";
+  color: green;
+}
+li.incorrect::before{
+  content: "\X  ";
+  color: red;
+}
+li.selected::before {
+  content: "\40  ";
   color: green;
 }
 
 .selected{
   cursor: pointer;
+}
+
+ul.unlisted{
+  list-style: none;
+}
+
+.correct{
+  color: green;
+}
+.incorrect{
+  color: red;
 }
