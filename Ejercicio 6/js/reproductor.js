@@ -34,7 +34,7 @@ Reproductor.generarMenu = function(idVideo){
     fchPublicado = document.createElement("time");
 
     section.classList.add("videoPrincipal");
-    video.setAttribute("src","../multimedia/videos/"+videoElegido.nombreVideo);//auto
+    video.setAttribute("src","multimedia/videos/"+videoElegido.nombreVideo);//auto
     video.setAttribute("controls",true);
     pTitulo.classList.add("titulo");
     pTitulo.textContent = videoElegido.tituloVideo;//auto
@@ -43,7 +43,7 @@ Reproductor.generarMenu = function(idVideo){
     pReproducciones.textContent = videoElegido.reproduccionesVideo + " visualizaciones";//auto
     addressAutor.classList.add("addressAutor");
     imgAutor.classList.add("imgAutor");
-    imgAutor.setAttribute("src","../multimedia/img/"+videoElegido.imgAutor);//auto
+    imgAutor.setAttribute("src","multimedia/img/"+videoElegido.imgAutor);//auto
     pNombreAutor.classList.add("nombreAutor");
     pNombreAutor.textContent = videoElegido.nombreAutor;//auto
     fchPublicado.setAttribute("datetime",videoElegido.datetime);//auto
@@ -77,7 +77,7 @@ Reproductor.generarMenu = function(idVideo){
         videoLista.classList.add("liVideoLista");
         videoLista.setAttribute("id",n.id);
         imgVideoLista.classList.add("imgVideoLista");
-        imgVideoLista.setAttribute("src","../multimedia/thumbnail/"+n.imgthumbnail);//auto
+        imgVideoLista.setAttribute("src","multimedia/thumbnail/"+n.imgthumbnail);//auto
         pTituloVideoLista.classList.add("tituloVideoLista");
         pTituloVideoLista.textContent = n.tituloVideo;//auto
         pNombreAutorLista.classList.add("nombreAutorLista");
