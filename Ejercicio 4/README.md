@@ -1,0 +1,2 @@
+### Consigna punto 4
+Implementar una librería que reciba como parámetro una estructura JSON con la configuración del test: El título, todas las preguntas con sus respuestas, cuantas preguntas se harán en cada test y el tiempo total que durará el test. La aplicación debe elegir las preguntas al azar, armar el cuestionario y puntuar las respuestas dadas por el usuario una vez que termino de completarlo o se acabó el tiempo estipulado.
